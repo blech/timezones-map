@@ -9,6 +9,43 @@
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 <script>
+var width = 960,
+    height = 1160;
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+
+d3.json("tz_world_s.topojson", function(error, tz) {
+  var zones = topojson.feature(tz, tz.objects['tz_world_mp']);
+
+  var projection = d3.geo.mercator()
+    .scale(500)
+    .translate([width / 2, height / 2]);
+
+  var path = d3.geo.path()
+    .projection(projection);
+
+  svg.append("path")
+      .datum(zones)
+      .attr("d", path);
+});
+
+
+</script>
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+/* CSS goes here. */
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script>
 var width = 1024,
     height = 800;
 
@@ -17,12 +54,12 @@ var svg = d3.select("body").append("svg")
     .attr("height", height);
 
 
-// d3.json("tz_world_s.topojson", function(error, tz) {
-//   var zones = topojson.feature(tz, tz.objects['tz_world_mp']);
-// d3.json("tz_world_mp.topojson", function(error, tz) {
-//   var zones = topojson.feature(tz, tz.objects['tz_world_mp']);
+d3.json("tz_world_tzwhere.topojson", function(error, tz) {
 
-d3.json("tz_world_tzwhere.json", function(error, tz) {
+  console.log("Building zones")
+  var zones = topojson.feature(tz, tz.objects['tz_world_tzwhere']);
+  console.log(zones)
+
   console.log("Building projection")
   var projection = d3.geo.mercator()
     .scale(500)
@@ -34,7 +71,8 @@ d3.json("tz_world_tzwhere.json", function(error, tz) {
 
   console.log("Appending zones")
   svg.selectAll("path")
-      .data(tz.features)
+      // .data(zones)
+      .data(topojson.feature(tz, tz.objects['tz_world_tzwhere']).features)
       .enter().append("path")
        .attr("class", function(d) { 
         tzid = d['properties']['TZID'];

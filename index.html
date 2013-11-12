@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+/* CSS goes here. */
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script>
+var width = 1024,
+    height = 800;
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+
+// d3.json("tz_world_s.topojson", function(error, tz) {
+//   var zones = topojson.feature(tz, tz.objects['tz_world_mp']);
+// d3.json("tz_world_mp.topojson", function(error, tz) {
+//   var zones = topojson.feature(tz, tz.objects['tz_world_mp']);
+
+d3.json("tz_world_tzwhere.json", function(error, tz) {
+  console.log("Building projection")
+  var projection = d3.geo.mercator()
+    .scale(500)
+    .translate([width / 2, height / 2]);
+
+  console.log("Building path")
+  var path = d3.geo.path()
+    .projection(projection);
+
+  console.log("Appending zones")
+  svg.selectAll("path")
+      .data(tz.features)
+      .enter().append("path")
+       .attr("class", function(d) { 
+        tzid = d['properties']['TZID'];
+        console.log(tzid);
+        return "zone " +tzid;  })
+       .attr("d", path);
+});
+
+
+</script>

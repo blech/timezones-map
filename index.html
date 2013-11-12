@@ -1,71 +1,49 @@
 <!DOCTYPE html>
+<head>
+<title>Timezones</title>
 <meta charset="utf-8">
 <style>
 
-/* CSS goes here. */
+.zone { 
+    fill: #fff; 
+    stroke: #777;
+    stroke-linejoin: round;
+    stroke-width: 0.3;
+}
 
 </style>
+</head>
 <body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 <script>
-var width = 960,
-    height = 1160;
+
+function getWidth() {
+    if (self.innerWidth) { return self.innerWidth; }
+    if (document.documentElement && document.documentElement.clientHeight){
+        return document.documentElement.clientWidth;
+    }
+    if (document.body) { return document.body.clientWidth; }
+    return 0;
+}
+
+var width = getWidth();
+console.log(width);
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
-    .attr("height", height);
-
-
-d3.json("tz_world_s.topojson", function(error, tz) {
-  var zones = topojson.feature(tz, tz.objects['tz_world_mp']);
-
-  var projection = d3.geo.mercator()
-    .scale(500)
-    .translate([width / 2, height / 2]);
-
-  var path = d3.geo.path()
-    .projection(projection);
-
-  svg.append("path")
-      .datum(zones)
-      .attr("d", path);
-});
-
-
-</script>
-
-<!DOCTYPE html>
-<meta charset="utf-8">
-<style>
-
-/* CSS goes here. */
-
-</style>
-<body>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://d3js.org/topojson.v1.min.js"></script>
-<script>
-var width = 1024,
-    height = 800;
-
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("height", width/2);
 
 
 d3.json("tz_world_tzwhere.topojson", function(error, tz) {
-
-  console.log("Building zones")
   var zones = topojson.feature(tz, tz.objects['tz_world_tzwhere']);
   console.log(zones)
 
-  console.log("Building projection")
-  var projection = d3.geo.mercator()
-    .scale(500)
-    .translate([width / 2, height / 2]);
+  var projection = d3.geo.equirectangular()
+    .center([0, 0])
+    .scale(170)
+    .translate([width / 2, width / 4]);
 
-  console.log("Building path")
   var path = d3.geo.path()
     .projection(projection);
 
@@ -76,10 +54,12 @@ d3.json("tz_world_tzwhere.topojson", function(error, tz) {
       .enter().append("path")
        .attr("class", function(d) { 
         tzid = d['properties']['TZID'];
-        console.log(tzid);
+        // console.log(tzid);
         return "zone " +tzid;  })
        .attr("d", path);
 });
 
 
 </script>
+</body>
+</html>

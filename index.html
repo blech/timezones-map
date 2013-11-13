@@ -11,6 +11,26 @@
     stroke-width: 0.3;
 }
 
+.africa { 
+    fill: #fbb4ae; 
+}
+
+.america { 
+    fill: #b3cde3; 
+}
+
+.asia, .indian {
+    fill: #ccebc5;
+}
+
+.atlantic, .europe { 
+    fill: #decbe4; 
+}
+
+.australia, .pacific {
+    fill: #fed9a6;
+}
+
 </style>
 </head>
 <body>
@@ -53,9 +73,9 @@ d3.json("tz_world_tzwhere.topojson", function(error, tz) {
       .data(topojson.feature(tz, tz.objects['tz_world_tzwhere']).features)
       .enter().append("path")
        .attr("class", function(d) { 
-        tzid = d['properties']['TZID'];
+        tzid = d['properties']['TZID'].replace('/', ' ');
         // console.log(tzid);
-        return "zone " +tzid;  })
+        return "zone " +tzid.toLowerCase();  })
        .attr("d", path);
 });
 

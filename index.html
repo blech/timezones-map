@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <head>
-<title>Timezones</title>
+<title>Timezones | blech.github.io</title>
 <meta charset="utf-8">
 <style>
+
+body {
+    margin: 0;
+    padding: 0;
+}
 
 .zone { 
     fill: #fff; 
@@ -36,6 +41,9 @@
 <body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="moment.min.js"></script>
+<script src="moment-timezone.min.js"></script>
+<script src="moment-timezone-data.js"></script>
 <script>
 
 function getWidth() {
@@ -47,8 +55,8 @@ function getWidth() {
     return 0;
 }
 
-var width = getWidth();
-console.log(width);
+var width = 1024;
+var height = 512;
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
@@ -61,8 +69,8 @@ d3.json("tz_world_tzwhere.topojson", function(error, tz) {
 
   var projection = d3.geo.equirectangular()
     .center([0, 0])
-    .scale(170)
-    .translate([width / 2, width / 4]);
+    .scale(163)
+    .translate([width / 2, height / 2]);
 
   var path = d3.geo.path()
     .projection(projection);
@@ -73,9 +81,9 @@ d3.json("tz_world_tzwhere.topojson", function(error, tz) {
       .data(topojson.feature(tz, tz.objects['tz_world_tzwhere']).features)
       .enter().append("path")
        .attr("class", function(d) { 
+        offset = "z"+moment().tz(d['properties']['TZID']).format('ZZ');
         tzid = d['properties']['TZID'].replace('/', ' ');
-        // console.log(tzid);
-        return "zone " +tzid.toLowerCase();  })
+        return "zone " +tzid.toLowerCase()+" "+offset;  })
        .attr("d", path);
 });
 

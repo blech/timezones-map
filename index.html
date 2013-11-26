@@ -36,46 +36,6 @@ body {
     fill: #fed9a6;
 }
 
-/* 
-.z\+1400 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+1375 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+1300 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+1200 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+1100 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+1050 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+1000 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+0950 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+0900 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+0875 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+0800 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+0700 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+0650 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+0600 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+0575 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+0550 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+0500 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+0450 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+0400 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+0350 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+0300 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+0200 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+0100 { stroke: rgba(138, 138, 138, 0.5); }
-.z\+0000 { stroke: rgba(138, 138, 138, 0.5); }
-.z-0100 { stroke: rgba(138, 138, 138, 0.5); }
-.z-0200 { stroke: rgba(138, 138, 138, 0.5); }
-.z-0300 { stroke: rgba(138, 138, 138, 0.5); }
-.z-0350 { stroke: rgba(138, 138, 138, 0.5); }
-.z-0400 { stroke: rgba(138, 138, 138, 0.5); }
-.z-0450 { stroke: rgba(138, 138, 138, 0.5); }
-.z-0500 { stroke: rgba(138, 138, 138, 0.5); }
-.z-0600 { stroke: rgba(138, 138, 138, 0.5); }
-.z-0700 { stroke: rgba(138, 138, 138, 0.5); }
-.z-0800 { stroke: rgba(138, 138, 138, 0.5); }
-.z-0900 { stroke: rgba(138, 138, 138, 0.5); }
-.z-0950 { stroke: rgba(138, 138, 138, 0.5); }
-.z-1000 { stroke: rgba(138, 138, 138, 0.5); }
- */
-
 </style>
 </head>
 <body>
@@ -107,7 +67,6 @@ var svg = d3.select("body").append("svg")
 
 d3.json("tz_world_tzwhere.topojson", function(error, tz) {
   var zones = topojson.feature(tz, tz.objects['tz_world_tzwhere']);
-  console.log(zones)
 
   var projection = d3.geo.equirectangular()
     .center([0, 0])
@@ -117,20 +76,14 @@ d3.json("tz_world_tzwhere.topojson", function(error, tz) {
   var path = d3.geo.path()
     .projection(projection);
 
-  console.log("Appending zones")
   svg.selectAll("path")
-      // .data(zones)
-      .data(topojson.feature(tz, tz.objects['tz_world_tzwhere']).features)
-      .enter().append("path")
-       .attr("class", function(d) { 
-        offset = moment().tz(d['properties']['TZID']).format('ZZ')
-        timezones[offset] = true
-        tzid = d['properties']['TZID'].replace('/', ' ');
-        return "zone " +tzid.toLowerCase()+" z"+offset;  })
-       .attr("d", path);
-
-  // console.log(Object.keys(timezones).sort(function(a,b){return b-a}));
-
+        .data(topojson.feature(tz, tz.objects['tz_world_tzwhere']).features)
+        .enter().append("path")
+        .attr("class", function(d) {
+            tzid = d['properties']['TZID'];
+            offset = moment().tz(tzid).format('ZZ')
+            return "zone " +tzid.replace('/', ' ').toLowerCase()+" z"+offset;  })
+        .attr("d", path);
 });
 
 

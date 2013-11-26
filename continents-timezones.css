@@ -1,0 +1,83 @@
+".africa.z\+0000", ".africa.z\+0100", ".africa.z\+0200", ".africa.z\+0300", 
+
+".america.z-0100", ".america.z-0200", ".america.z-0300", ".america.z-0350", ".america.z-0400", ".america.z-0450", ".america.z-0500", ".america.z-0600", ".america.z-0700", ".america.z-0800", ".america.z-0900", ".america.z-1000", ".america.z\+0000", 
+
+".antarctica.z\+1100", 
+
+".arctic.z\+0100", 
+
+".asia.z\+0200", ".asia.z\+0300", ".asia.z\+0350", ".asia.z\+0400", ".asia.z\+0450", ".asia.z\+0500", ".asia.z\+0550", ".asia.z\+0575", ".asia.z\+0600", ".asia.z\+0650", ".asia.z\+0700", ".asia.z\+0800", ".asia.z\+0900", ".asia.z\+1000", ".asia.z\+1100", ".asia.z\+1200", 
+
+".atlantic.z-0100", ".atlantic.z-0200", ".atlantic.z-0300", ".atlantic.z\+0000", 
+
+".australia.z\+0800", ".australia.z\+0875", ".australia.z\+0950", ".australia.z\+1000", ".australia.z\+1050", ".australia.z\+1100", 
+
+".europe.z\+0000", ".europe.z\+0100", ".europe.z\+0200", ".europe.z\+0300", ".europe.z\+0400", 
+
+".indian.z\+0300", ".indian.z\+0400", ".indian.z\+0500", 
+
+".pacific.z-0600", ".pacific.z-0950", ".pacific.z-1000", ".pacific.z\+1000", ".pacific.z\+1100", ".pacific.z\+1200", ".pacific.z\+1300", ".pacific.z\+1375", ".pacific.z\+1400", 
+
+".uninhabited.z\+0000"
+
+
+/* 
+
+  console.log("Appending zones")
+  svg.selectAll("path")
+      // .data(zones)
+      .data(topojson.feature(tz, tz.objects['tz_world_tzwhere']).features)
+      .enter().append("path")
+       .attr("class", function(d) { 
+        offset = moment().tz(d['properties']['TZID']).format('ZZ')
+        // timezones[offset] = true
+        tzid = d['properties']['TZID'].replace('/', ' ');
+        where = tzid.split(' ');
+        timezones['.'+where[0].toLowerCase()+'.z'+offset.replace('+', '\\+')] = true;
+        return "zone " +tzid.toLowerCase()+" z"+offset;  })
+       .attr("d", path);
+
+  console.log(Object.keys(timezones).sort());
+
+ */
+
+
+/* 
+.z\+1400 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+1375 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+1300 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+1200 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+1100 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+1050 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+1000 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+0950 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+0900 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+0875 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+0800 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+0700 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+0650 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+0600 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+0575 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+0550 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+0500 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+0450 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+0400 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+0350 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+0300 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+0200 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+0100 { stroke: rgba(138, 138, 138, 0.5); }
+.z\+0000 { stroke: rgba(138, 138, 138, 0.5); }
+.z-0100 { stroke: rgba(138, 138, 138, 0.5); }
+.z-0200 { stroke: rgba(138, 138, 138, 0.5); }
+.z-0300 { stroke: rgba(138, 138, 138, 0.5); }
+.z-0350 { stroke: rgba(138, 138, 138, 0.5); }
+.z-0400 { stroke: rgba(138, 138, 138, 0.5); }
+.z-0450 { stroke: rgba(138, 138, 138, 0.5); }
+.z-0500 { stroke: rgba(138, 138, 138, 0.5); }
+.z-0600 { stroke: rgba(138, 138, 138, 0.5); }
+.z-0700 { stroke: rgba(138, 138, 138, 0.5); }
+.z-0800 { stroke: rgba(138, 138, 138, 0.5); }
+.z-0900 { stroke: rgba(138, 138, 138, 0.5); }
+.z-0950 { stroke: rgba(138, 138, 138, 0.5); }
+.z-1000 { stroke: rgba(138, 138, 138, 0.5); }
+ */
